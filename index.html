@@ -30,7 +30,44 @@
             /* background-color: #ffffff5b; */
            
         }
-        
+        /* 修改后的加载动画 */
+        .loader {
+            position: fixed; /* 使用fixed定位脱离文档流 */
+            top: 0;
+            left: 0;
+            width: 100vw; /* 使用视窗单位 */
+            height: 100vh;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* 确保最高层级 */
+            transition: opacity 0.5s;
+            pointer-events: none; /* 初始状态不拦截事件 */
+        }
+
+        .loader::after {
+            /* 原有样式不变 */
+            content: "";
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top-color: #b433f0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader.active {
+            pointer-events: auto; /* 激活时拦截事件 */
+        }
+
+        .loader.hidden {
+            opacity: 0;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
         /* 界面1 -----------------------------------*/
 
         .emptybox:nth-child(1) {
@@ -908,6 +945,18 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    // 修改后的加载控制
+    window.addEventListener('DOMContentLoaded', () => {
+        const loader = document.querySelector('.loader');
+        loader.classList.add('active'); // 激活加载层
+        
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loader.classList.remove('active');
+                loader.classList.add('hidden');
+            }, 500);
+        });
+    });
    
     // 界面1新增Canvas星空动画
     // 纯星空动画
@@ -1298,6 +1347,7 @@
         scrollbox.resize();
         ts();
     });
+
     // 初始化调整容器大小
     scrollbox.resize();
     // 添加窗口大小改变事件监听器，以重新调整容器大小
