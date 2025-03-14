@@ -23,6 +23,29 @@
             width: 100%;
             /* background-color: #171717; */
         }
+        /* 容器样式 */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* 旋转圆圈加载动画 */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
         .emptybox {
             width: 100%;
@@ -614,39 +637,7 @@
             font-size: 26px;
             letter-spacing: 3px;
         }
-        /* .scrollbox {
-            justify-content: start;
-            align-items: start;
-            width: 100%;
-            overflow: hidden;
-        }
 
-        .scrollbox_container {
-            justify-content: start;
-            height: 100vh;
-            flex-shrink: 0;
-            background-color: aqua;
-        }
-
-        .scrollbox_container_card {
-            position: relative;
-            width: 65rem;
-            height: 40rem;
-            background-color: #ff0000;
-            border-radius: 5rem;
-            margin-left: 5rem;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .scrollbox_container_card p {
-            font-family: sans-serif;
-            font-size: 6rem;
-            color: #ff00c3;
-            font-weight: 900;
-            text-transform: uppercase;
-            z-index: 1;
-        }     */
 
     </style>
     <link rel="stylesheet" href="/1022/download_4/font_jvcvbwruwxp/iconfont.css">
@@ -843,19 +834,6 @@
         </div>    
     </div>
 
-    <!-- <div class="scrollbox">
-        <div class="scrollbox_container">
-            <div class="scrollbox_container_card">
-                <p>card one</p>
-            </div>
-            <div class="scrollbox_container_card">
-                <p>card two</p>
-            </div>
-            <div class="scrollbox_container_card">
-                <p>card three</p>
-            </div>
-        </div>
-    </div> -->
     
     <div class="emptybox">
         <div class="shell">
@@ -904,13 +882,16 @@
             </div>
         </div>        
     </div>
+    <div class="loader-container">
+        <!-- 旋转圆圈 -->
+        <div class="spinner"></div>
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
    
     // 界面1新增Canvas星空动画
-    // 纯星空动画
+
     class StarrySky {
         constructor() {
             this.canvas = document.createElement('canvas');
@@ -1288,7 +1269,9 @@
         }
     }    
     
-    
+    window.addEventListener('load', function() {
+            document.querySelector('.loader-container').style.display = 'none';
+        });
     // 新增初始化逻辑
     window.addEventListener('DOMContentLoaded', () => {
         new StarrySky();
