@@ -21,44 +21,36 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            position: relative;  /* 新增 */
-            min-height: 100vh;
             /* background-color: #171717; */
         }
-/* 新增加载动画 */
-.loader {
-        position: fixed;  /* 使用fixed定位 */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #1a1a1a;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;  /* 确保最高层级 */
-        transition: opacity 0.5s;
-    }
+        .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(23, 23, 23, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s;
+}
 
-    .loader::after {
-        content: "";
-        width: 60px;
-        height: 60px;
-        border: 4px solid rgba(255,255,255,0.2);
-        border-top-color: #b433f0;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
+.loader::after {
+    content: "";
+    width: 60px;
+    height: 60px;
+    border: 4px solid #fff;
+    border-top-color: #b433f0;
+    border-radius: 50%;
+    animation: loading 0.8s ease infinite;
+}
 
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    .loader.hidden {
-        opacity: 0;
-        pointer-events: none;  /* 隐藏后不拦截事件 */
-    }
-
+@keyframes loading {
+    from { transform: rotate(0turn); }
+    to { transform: rotate(1turn); }
+}
         .emptybox {
             width: 100%;
             height: 100vh;
@@ -689,8 +681,7 @@
 </head>
 
 <body>
-       <!-- 加载动画必须放在body的最开始位置 -->
-       <div class="loader"></div>
+    <div class="loader"></div>
     <!-- 界面1 -->
     <div class="emptybox" id="poetry-container"> 
         <div class="a" style="font-family: 'ZCOOL QingKe HuangYou', sans-serif;font-size: 50px;">
@@ -944,7 +935,10 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-   
+   // 隐藏加载动画
+window.onload = function() {
+    document.querySelector('.loader').style.display = 'none';
+};
     // 界面1新增Canvas星空动画
     // 纯星空动画
     class StarrySky {
@@ -1326,27 +1320,14 @@
     
     
     // 新增初始化逻辑
-// 替换原有加载动画控制代码
-window.addEventListener('DOMContentLoaded', () => {
-    const loader = document.querySelector('.loader');
-    
-    // 显示加载动画
-    loader.style.display = 'flex'; // 强制覆盖其他flex样式
-    
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            loader.classList.add('hidden');
-        }, 500);
+    window.addEventListener('DOMContentLoaded', () => {
+        new StarrySky();
+        new StarrySky1();
+        poetry.init();
+        faulttext.init();
+        scrollbox.resize();
+        ts();
     });
-    
-    // 原有其他初始化代码保持不变
-    new StarrySky();
-    new StarrySky1();
-    poetry.init();
-    faulttext.init();
-    scrollbox.resize();
-    ts();
-});
     // 初始化调整容器大小
     scrollbox.resize();
     // 添加窗口大小改变事件监听器，以重新调整容器大小
