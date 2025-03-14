@@ -30,39 +30,7 @@
             /* background-color: #ffffff5b; */
            
         }
-                /* 新增加载动画 */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #1a1a1a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s;
-        }
-    
-        .loader::after {
-            content: "";
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255,255,255,0.2);
-            border-top-color: #b433f0;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-    
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        
         /* 界面1 -----------------------------------*/
 
         .emptybox:nth-child(1) {
@@ -940,13 +908,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    // 页面加载动画控制
-    window.addEventListener('load', function() {
-        const loader = document.querySelector('.loader');
-        setTimeout(() => {
-            loader.classList.add('hidden');
-        }, 500); // 确保至少显示0.5秒
-    });
+   
     // 界面1新增Canvas星空动画
     // 纯星空动画
     class StarrySky {
