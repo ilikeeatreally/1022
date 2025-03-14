@@ -947,14 +947,29 @@ body.loaded > :not(.loader) {
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-// 替换原来的加载动画隐藏逻辑
+// 加载动画隐藏逻辑
 window.addEventListener('load', function() {
-    document.querySelector('.loader').style.opacity = '0';
+    // 初始化所有组件
+    new StarrySky();
+    new StarrySky1();
+    poetry.init();
+    faulttext.init();
+    scrollbox.resize();
+    ts();
+    
+    // 显示页面内容
     document.body.classList.add('loaded');
     
-    // 延迟移除加载层防止闪烁
+    // 隐藏加载动画
+    const loader = document.querySelector('.loader');
+    loader.style.opacity = '0';
+    
+    // 延迟移除加载层
     setTimeout(() => {
-        document.querySelector('.loader').remove();
+        loader.remove();
+        
+        // 确保星空画布重新适配
+        window.dispatchEvent(new Event('resize'));
     }, 500);
 });
     // 界面1新增Canvas星空动画
@@ -1337,15 +1352,7 @@ window.addEventListener('load', function() {
     }    
     
     
-    // 新增初始化逻辑
-    window.addEventListener('DOMContentLoaded', () => {
-        new StarrySky();
-        new StarrySky1();
-        poetry.init();
-        faulttext.init();
-        scrollbox.resize();
-        ts();
-    });
+
     // 初始化调整容器大小
     scrollbox.resize();
     // 添加窗口大小改变事件监听器，以重新调整容器大小
